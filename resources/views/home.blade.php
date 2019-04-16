@@ -7,7 +7,7 @@
            <div class="card">
                <div class="card-content ">
                    <span class="card-title">Company List</span>
-                    <button class="btn blue darken-1" type="submit">Create new company</button>
+               <button class="btn blue darken-1" type="button"><a style="color: white;" href="{{ route('companies.create') }}"> Create new company</a></button>
                </div>
                 <div class="card">
                     <table class = "striped bordered">
