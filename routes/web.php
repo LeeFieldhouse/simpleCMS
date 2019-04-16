@@ -18,4 +18,4 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'pageController@home')->name('home');
 
-Route::resource('companies', 'CompanyController@create');
+Route::resource('companies', 'CompanyController');
