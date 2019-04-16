@@ -55,11 +55,14 @@
                                         <i class="material-icons left">edit</i>
                                         <span>Edit</span>
                                     </button>
-                                    <button class="btn red">
-                                        <i class="material-icons left">delete</i>
-                                        <span>Delete</span>
-
-                                    </button>
+                                    <form method="POST" action="{{route('companies.destroy', $company)}}">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn red" type="submit">
+                                            <i class="material-icons left">delete</i>
+                                            <span>Delete</span>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
