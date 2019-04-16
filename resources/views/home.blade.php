@@ -13,11 +13,11 @@
                     <form action="{{route('companies.store')}}" method="POST">
                         @csrf
                         <div class="input-field col s12">
-                            <input type="text" name="name" id="name" class="">
+                            <input type="text" name="name" id="name" class="" value="{{old('name')}}">
                             <label for="name">Name</label>
                         </div>
                         <div class="input-field col s12">
-                            <input type="text" name="address" id="address" class="">
+                            <input type="text" name="address" id="address" class="" value="{{old('address')}}">
                             <label for="name">Address</label>
                         </div>
                         <div class="input-field col s12">
@@ -45,13 +45,13 @@
 
                         <tbody>
                             @foreach($companies as $company)
-                            <tr>
-                                <td>Mahesh Parashar</td>
-                                <td>123 SIlver Road, Bristol, BS42 62Y</td>
-                                <td>https://facebook.com</td>
-                                <td>testing123@testing.com</td>
+                            <tr class="show-company" id="{{$company->id}}">
+                                <td>{{$company->name}}</td>
+                                <td>{{$company->address}}</td>
+                                <td>{{$company->website}}</td>
+                                <td>{{$company->email}}</td>
                                 <td>
-                                    <button class="btn grey">
+                                    <button onclick="openEdit({{$company->id}})" class="btn grey">
                                         <i class="material-icons left">edit</i>
                                         <span>Edit</span>
                                     </button>
@@ -65,6 +65,27 @@
                                     </form>
                                 </td>
                             </tr>
+                            <tr class="edit-company" id="edit{{$company->id}}" style="display: none;" >
+                                <form method="POST" action="{{route('companies.destroy', $company)}}">
+                                    @csrf
+                                    @method('delete')
+                                    <td><input type="text" name="editName" value="{{$company->name}}"></td>
+                                    <td><input type="text" name="editAddress" value="{{$company->address}}"></td>
+                                    <td><input type="text" name="editWebsite" value="{{$company->website}}"></td>
+                                    <td><input type="text" name="editEmail" value="{{$company->email}}"></td>
+                                    <td>
+                                        <button class="btn ">
+                                            <i class="material-icons left">edit</i>
+                                            <span>Submit</span>
+                                        </button>
+                                        <button class="btn red" type="submit">
+                                            <i class="material-icons left">delete</i>
+                                            <span>Delete</span>
+                                        </button>
+                                    </td>
+                                </form>
+                            </tr>
+
                             @endforeach
                         </tbody>
                     </table>
@@ -78,6 +99,8 @@
 
 @section('script')
 <script>
+
+
     function addNew(){
         let addNew = document.getElementById('add-new')
         if(addNew.style.display == "none"){
@@ -87,6 +110,13 @@
         }
     }
 
+    function openEdit(company){
+        let openEdit = document.getElementById(company)
+        let edit = document.getElementById(`edit${company}`)
+
+        openEdit.style.display = "none"
+        edit.style.display = "table-row"
+    }
 
 </script>
 @endsection
