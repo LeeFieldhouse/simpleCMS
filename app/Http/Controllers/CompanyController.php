@@ -42,7 +42,9 @@ class CompanyController extends Controller
             'email' => 'required',
         ]);
 
+            Company::create($request->all());
 
+            return redirect()->route('home');
     }
 
     /**
@@ -87,6 +89,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return redirect()->route('home');
     }
 }
