@@ -7,9 +7,31 @@
            <div class="card">
                <div class="card-content ">
                    <span class="card-title">Company List</span>
-               <button class="btn blue darken-1" type="button"><a style="color: white;" href="{{ route('companies.create') }}"> Create new company</a></button>
+               <button class="btn blue darken-1" onclick="addNew()" type="button">Create new company</button>
                </div>
-                <div class="card">
+               <div class="card-content " id="add-new"  style="display: none;">
+                    <form action="{{route('companies.store')}}" method="POST">
+                        @csrf
+                        <div class="input-field col s12">
+                            <input type="text" name="name" id="name" class="">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="text" name="address" id="address" class="">
+                            <label for="name">Address</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="text" name="website" id="website" class="">
+                            <label for="name">Website</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="text" name="email" id="email" class="">
+                            <label for="name">Email</label>
+                        </div>
+                        <button type="submit" class="btn">Submit</button>
+                    </form>
+               </div>
+                <div class="card-content">
                     <table class = "striped bordered">
                         <thead>
                             <tr>
@@ -48,4 +70,20 @@
        </div>
     </div>
 </div>
+@endsection
+
+
+@section('script')
+<script>
+    function addNew(){
+        let addNew = document.getElementById('add-new')
+        if(addNew.style.display == "none"){
+            addNew.style.display = "block"
+        }else{
+            addNew.style.display = "none"
+        }
+    }
+
+
+</script>
 @endsection
