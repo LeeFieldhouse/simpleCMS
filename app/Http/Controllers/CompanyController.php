@@ -78,7 +78,23 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $edit = Company::find($company->id);
+        $edit->name = $request->editName;
+        $edit->email = $request->editEmail;
+        $edit->address = $request->editAddress;
+        $edit->website = $request->editWebsite;
+        if($request->editLogo){
+            $file = $request->file('editLogo'); //Grabs file from form
+            $logo = Image::make($file); //Uses Image intervention
+            $logo->resize(250, null); //Resizes File With Image Intervention
+            $jpg = (string) $logo->encode('jpg'); //Converts file to jpg with image intervention
+            $filename = uniqid(Auth::user()->id."_").".jpg"; //Unique File name
+            Storage::disk('featured')->put('/logo/' .$filename, $jpg, 'public');
+            $url = Storage::disk('featured')->url('/logo/'.$filename);
+            $edit->logo = $url;
+        }
+        $edit->save();
+        return redirect()->route('home');
     }
 
     /**
