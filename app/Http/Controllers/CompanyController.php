@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use Illuminate\Http\Request;
+use Image;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -78,21 +81,40 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
+        $request->validate([
+            'editName' => 'required',
+            'editEmail' => 'required|email',
+            'editAddress' => 'required',
+            'editWebsite' => 'required',
+            'editLogo' => 'sometimes|required|image'
+
+        ]);
         $edit = Company::find($company->id);
         $edit->name = $request->editName;
         $edit->email = $request->editEmail;
         $edit->address = $request->editAddress;
         $edit->website = $request->editWebsite;
+
+        //Update Logo
         if($request->editLogo){
+            if($edit->logo != ''){
+                $unlink = str_replace(config('app.url'), "", $edit->logo);
+                unlink(public_path($unlink));
+            }
             $file = $request->file('editLogo'); //Grabs file from form
             $logo = Image::make($file); //Uses Image intervention
+            $logo->resize(250, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });//COnstrains aspect ratio with a width of 250px
             $logo->resize(250, null); //Resizes File With Image Intervention
             $jpg = (string) $logo->encode('jpg'); //Converts file to jpg with image intervention
             $filename = uniqid(Auth::user()->id."_").".jpg"; //Unique File name
-            Storage::disk('featured')->put('/logo/' .$filename, $jpg, 'public');
-            $url = Storage::disk('featured')->url('/logo/'.$filename);
+            Storage::disk('public')->put('/logo/' .$filename, $jpg, 'public');
+            $url = Storage::disk('public')->url('/logo/'.$filename);
             $edit->logo = $url;
         }
+
+        //Save Edit
         $edit->save();
         return redirect()->route('home');
     }
