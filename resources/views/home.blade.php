@@ -47,6 +47,12 @@
                         @foreach($companies as $company)
                         <tr class="show-company" id="{{$company->id}}">
                             <td><img src="{{$company->logo}}"  alt="">
+                                @if ($errors->has('editLogo'))
+                                    @foreach ($errors->all() as $error)
+                                        <p>{{$error}}</p>
+                                    @endforeach
+                                @endif
+
                             </td>
                             <td>{{$company->name}}</td>
                             <td>{{$company->address}}</td>
