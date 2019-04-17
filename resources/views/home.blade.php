@@ -52,60 +52,60 @@
                     <tbody>
                         <!-- Show Companies -->
                         @foreach($companies as $company)
-                        <tr class="show-company" id="{{$company->id}}">
-                            <td><img src="{{$company->logo}}"  alt="">
-                                @if ($errors->has('editLogo'))
-                                    @foreach ($errors->all() as $error)
-                                        <p>{{$error}}</p>
-                                    @endforeach
-                                @endif
+                            <tr class="show-company" id="{{$company->id}}">
+                                <td><img src="{{$company->logo}}"  alt="">
+                                    @if ($errors->has('editLogo'))
+                                        @foreach ($errors->all() as $error)
+                                            <p>{{$error}}</p>
+                                        @endforeach
+                                    @endif
 
-                            </td>
-                            <td>{{$company->name}}</td>
-                            <td>{{$company->address}}</td>
-                            <td>{{$company->website}}</td>
-                            <td>{{$company->email}}</td>
-                            <td>
-                                <button onclick="openEdit({{$company->id}})" class="btn grey">
-                                    <i class="material-icons left">edit</i>
-                                    <span>Edit</span>
-                                </button>
-                                <form method="POST" action="{{route('companies.destroy', $company)}}">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn red" type="submit">
-                                        <i class="material-icons left">delete</i>
-                                        <span>Delete</span>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr><!-- End Show Company -->
-
-                        <!-- Edit Companies -->
-                        <tr class="edit-company" id="edit{{$company->id}}" style="display: none;" >
-                            <form method="POST" enctype="multipart/form-data" action="{{route('companies.update', $company)}}">
-                                @csrf
-                                @method('patch')
-                                <td><img src="{{$company->logo}}" style="max-width: 250px; max-height: 250px;" alt="">
-                                    <input  type="file" name="editLogo">
                                 </td>
-                                <td><input type="text" name="editName" value="{{$company->name}}"></td>
-                                <td><input type="text" name="editAddress" value="{{$company->address}}"></td>
-                                <td><input type="text" name="editWebsite" value="{{$company->website}}"></td>
-                                <td><input type="text" name="editEmail" value="{{$company->email}}"></td>
+                                <td><a href="{{route('companies.show', $company->id)}}">{{$company->name}}</a></td>
+                                <td>{{$company->address}}</td>
+                                <td>{{$company->website}}</td>
+                                <td>{{$company->email}}</td>
                                 <td>
-                                    <button class="btn ">
-                                        <i class="material-icons left">send</i>
-                                        <span>Submit</span>
+                                    <button onclick="openEdit({{$company->id}})" class="btn grey">
+                                        <i class="material-icons left">edit</i>
+                                        <span>Edit</span>
                                     </button>
-                                </form>
-                                    <button class="btn red" type="submit">
-                                        <i class="material-icons left">delete</i>
-                                        <span>Delete</span>
-                                    </button>
+                                    <form method="POST" action="{{route('companies.destroy', $company)}}">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn red" type="submit">
+                                            <i class="material-icons left">delete</i>
+                                            <span>Delete</span>
+                                        </button>
+                                    </form>
                                 </td>
-                        </tr>
-                        @endforeach<!-- End Show -->
+                            </tr><!-- End Show Company -->
+
+                            <!-- Edit Companies -->
+                            <tr class="edit-company" id="edit{{$company->id}}" style="display: none;" >
+                                <form method="POST" enctype="multipart/form-data" action="{{route('companies.update', $company)}}">
+                                    @csrf
+                                    @method('patch')
+                                    <td><img src="{{$company->logo}}" style="max-width: 250px; max-height: 250px;" alt="">
+                                        <input  type="file" name="editLogo">
+                                    </td>
+                                    <td><input type="text" name="editName" value="{{$company->name}}"></td>
+                                    <td><input type="text" name="editAddress" value="{{$company->address}}"></td>
+                                    <td><input type="text" name="editWebsite" value="{{$company->website}}"></td>
+                                    <td><input type="text" name="editEmail" value="{{$company->email}}"></td>
+                                    <td>
+                                        <button class="btn ">
+                                            <i class="material-icons left">send</i>
+                                            <span>Submit</span>
+                                        </button>
+                                    </form>
+                                        <button class="btn red" type="submit">
+                                            <i class="material-icons left">delete</i>
+                                            <span>Delete</span>
+                                        </button>
+                                    </td>
+                            </tr><!-- End Edit -->
+                        @endforeach<!-- End Show & Edit -->
                     </tbody>
                 </table>
             </div>

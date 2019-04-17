@@ -44,8 +44,31 @@ class CompanyController extends Controller
             'website' => 'required',
             'email' => 'required',
         ]);
+        //Update Logo
+        if($request->logo){
+            $file = $request->file('logo'); //Grabs file from form
+            $logo = Image::make($file); //Uses Image intervention
+            $logo->resize(250, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });//COnstrains aspect ratio with a width of 250px
+            $logo->resize(250, null); //Resizes File With Image Intervention
+            $jpg = (string) $logo->encode('jpg'); //Converts file to jpg with image intervention
+            $filename = uniqid(Auth::user()->id."_").".jpg"; //Unique File name
+            Storage::disk('public')->put('/logo/' .$filename, $jpg, 'public');
+            $url = Storage::disk('public')->url('/logo/'.$filename);
 
+            $request->logo = $url;
+
+            $company = new Company;
+            $company->name = $request->name;
+            $company->email = $request->email;
+            $company->address = $request->address;
+            $company->logo = $url;
+            $company->website = $request->website;
+            $company->save();
+        }else{
             Company::create($request->all());
+        }
 
             return redirect()->route('home');
     }
@@ -58,7 +81,9 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        return view('show')->with([
+            'company' => $company,
+        ]);
     }
 
     /**

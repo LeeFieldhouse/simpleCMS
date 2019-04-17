@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Company;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -35,7 +36,16 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $employee = new Employee;
+        $employee->first_name = $request->first_name;
+        $employee->last_name = $request->last_name;
+        $employee->phone = $request->phone;
+        $employee->email = $request->email;
+        $employee->company_id = $request->company_id;
+        $employee->save();
+        return redirect()->route('companies.show', $request->company_id);
+
     }
 
     /**
@@ -69,7 +79,15 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+
+        $editEmployee = Employee::findOrFail($employee->id);
+        $editEmployee->first_name = $request->editFirstName;
+        $editEmployee->last_name = $request->editLastName;
+        $editEmployee->email = $request->editEmail;
+        $editEmployee->phone = $request->editPhone;
+        $editEmployee->save();
+
+        return redirect()->route('companies.show', $employee->company_id);
     }
 
     /**
@@ -80,6 +98,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+
+        return redirect()->route('companies.show', $employee->company->id);
     }
 }
