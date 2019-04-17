@@ -22,18 +22,31 @@
                     <div class="input-field col s12">
                         <input type="text" name="address" id="address" class="" value="{{old('address')}}">
                         <label for="name">Address</label>
+                        @if ($errors->has('address'))
+                            <div class="error">{{$errors->first('address')}}</div>
+                        @endif
                     </div>
                     <div class="input-field col s12">
                         <input type="text" name="website" id="website" class="" value={{old('website')}}>
                         <label for="name">Website</label>
+                        @if($errors->has('website'))
+                            <div class="error">{{$errors->first('website')}}</div>
+                        @endif
                     </div>
                     <div class="input-field col s12">
                         <input type="text" name="email" id="email" class="" value="{{old('email')}}">
                         <label for="name">Email</label>
+                        @if ($errors->has('email'))
+                            <div class="error">{{$errors->first('email')}}</div>
+                        @endif
                     </div>
                     <div class="input-field col s12">
                         <span><h3>Logo</h3></span>
                         <input type="file" name="logo" id="logo">
+                        @if ($errors->has('logo'))
+                            <div class="error">{{$errors->first('logo')}}</div>
+                        @endif
+                        <div class="error"></div>
                     </div>
                     <button type="submit" class="btn">Submit</button>
                 </form>
