@@ -86,7 +86,7 @@ class CompanyController extends Controller
             'editEmail' => 'required|email',
             'editAddress' => 'required',
             'editWebsite' => 'required',
-            'editLogo' => 'sometimes|required|image'
+            'editLogo' => 'sometimes|required|image|dimensions:min_height=100,min_width=100'
 
         ]);
         $edit = Company::find($company->id);
