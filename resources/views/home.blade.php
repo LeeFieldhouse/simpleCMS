@@ -8,8 +8,9 @@
                 <span class="card-title">Company List</span>
             <button class="btn blue darken-1" onclick="addNew()" type="button">Create new company</button>
             </div>
+            <!-- Dropdown Create New Company -->
             <div class="card-content " id="add-new"  style="display: none;">
-                <form action="{{route('companies.store')}}" method="POST">
+                <form enctype="multipart/form-data" action="{{route('companies.store')}}" method="POST">
                     @csrf
                     <div class="input-field col s12">
                         <input type="text" name="name" id="name" class="" value="{{old('name')}}">
@@ -27,9 +28,15 @@
                         <input type="text" name="email" id="email" class="">
                         <label for="name">Email</label>
                     </div>
+                    <div class="input-field col s12">
+                        <span><h3>Logo</h3></span>
+                        <input type="file" name="logo" id="logo">
+                    </div>
                     <button type="submit" class="btn">Submit</button>
                 </form>
-            </div>
+            </div> <!-- End Add New Company -->
+
+            <!-- Show & Edit Companies -->
             <div class="card-content">
                 <table class = "striped bordered">
                     <thead>
@@ -42,8 +49,8 @@
                             <th>Admin</th>
                         </tr>
                     </thead>
-
                     <tbody>
+                        <!-- Show Companies -->
                         @foreach($companies as $company)
                         <tr class="show-company" id="{{$company->id}}">
                             <td><img src="{{$company->logo}}"  alt="">
@@ -72,7 +79,9 @@
                                     </button>
                                 </form>
                             </td>
-                        </tr>
+                        </tr><!-- End Show Company -->
+
+                        <!-- Edit Companies -->
                         <tr class="edit-company" id="edit{{$company->id}}" style="display: none;" >
                             <form method="POST" enctype="multipart/form-data" action="{{route('companies.update', $company)}}">
                                 @csrf
@@ -95,10 +104,8 @@
                                         <span>Delete</span>
                                     </button>
                                 </td>
-
                         </tr>
-
-                        @endforeach
+                        @endforeach<!-- End Show -->
                     </tbody>
                 </table>
             </div>
