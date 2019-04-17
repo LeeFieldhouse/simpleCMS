@@ -5,7 +5,7 @@
     <div class="col s12">
         <div class="card">
             <div class="card-content ">
-                <span class="card-title">Company List</span>
+                <span class="card-title"><h2>Company List</h2></span>
             <button class="btn blue darken-1" onclick="addNew()" type="button">Create new company</button>
             </div>
             <!-- Dropdown Create New Company -->
@@ -15,17 +15,20 @@
                     <div class="input-field col s12">
                         <input type="text" name="name" id="name" class="" value="{{old('name')}}">
                         <label for="name">Name</label>
+                        @if ($errors->has('name'))
+                            <div class="error">{{$errors->first('name')}}</div>
+                        @endif
                     </div>
                     <div class="input-field col s12">
                         <input type="text" name="address" id="address" class="" value="{{old('address')}}">
                         <label for="name">Address</label>
                     </div>
                     <div class="input-field col s12">
-                        <input type="text" name="website" id="website" class="">
+                        <input type="text" name="website" id="website" class="" value={{old('website')}}>
                         <label for="name">Website</label>
                     </div>
                     <div class="input-field col s12">
-                        <input type="text" name="email" id="email" class="">
+                        <input type="text" name="email" id="email" class="" value="{{old('email')}}">
                         <label for="name">Email</label>
                     </div>
                     <div class="input-field col s12">
