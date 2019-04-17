@@ -5,8 +5,8 @@
     <div class="col s12">
         <div class="card">
             <div class="card-content ">
-                <span class="card-title">{{$company->name}} Employees</span>
-            <button class="btn blue darken-1" onclick="addNew()" type="button">Create new employee for {{$company->name}}</button>
+                <span class="card-title"><h2>{{$company->name}} Employees</h2></span>
+                <button class="btn blue darken-1" onclick="addNew()" type="button">Create new employee for {{$company->name}}</button>
             </div>
             <!-- Dropdown Create New Company -->
             <div class="card-content " id="add-new"  style="display: none;">
