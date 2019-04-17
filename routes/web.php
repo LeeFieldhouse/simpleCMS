@@ -12,11 +12,14 @@
 */
 
 Route::get('/', 'PageController@index')->name('index');
-Route::get('/home', 'pageController@home')->name('home');
+
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
 
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', 'pageController@home')->name('home');
+    Route::resource('companies', 'CompanyController');
+});
 
-Route::resource('companies', 'CompanyController');
