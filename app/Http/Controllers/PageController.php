@@ -18,6 +18,7 @@ class PageController extends Controller
 
     public function home() {
         $companies = Company::all();
+        dd('test');
         return view('home')->with('companies', $companies);
     }
 }
