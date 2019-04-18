@@ -16,10 +16,10 @@ Route::get('/', 'PageController@index')->name('index');
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
-
+Route::get('/home', 'pageController@home')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', 'pageController@home')->name('home');
+
     Route::resource('companies', 'CompanyController');
     Route::resource('employees', 'EmployeeController');
 });
