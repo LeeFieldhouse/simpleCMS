@@ -31,7 +31,7 @@ class UserTableSeeder extends Seeder
                 'last_name' => $faker->lastName,
                 'email' => $faker->email,
                 'phone' => $faker->phoneNumber,
-                'company_id' => random(1, Company::count())
+                'company_id' => rand(1, App\Company::count())
             ]);
         }
 
