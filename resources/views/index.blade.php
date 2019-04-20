@@ -7,6 +7,8 @@ Home
         <div class="row">
             <div class="col s12">
                 <h2 class="center-align">Login</h2>
+                <h4>test@test.com</h4>
+                <h4>testing</h4>
                 <div class="row">
                     <form class="col s12" method="POST" action="{{route('login')}}">
                         @csrf
