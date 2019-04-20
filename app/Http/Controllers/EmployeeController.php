@@ -39,7 +39,7 @@ class EmployeeController extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'phone' => 'required|email',
+            'phone' => 'required',
             'company_id' => 'required'
         ]);
 
