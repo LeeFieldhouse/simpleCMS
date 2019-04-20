@@ -31,6 +31,11 @@
                     <input type="hidden" name="company_id" id="company_id" value="{{$company->id}}">
                     <button type="submit" class="btn">Submit</button>
                 </form>
+                @if ($errors)
+                @foreach ($errors->all() as $error)
+                    <p>{{$error}}</p>
+                @endforeach
+            @endif
             </div> <!-- End Add New Company -->
 
             <!-- Show & Edit Companies -->
@@ -78,10 +83,11 @@
                                     <td><input type="text" name="editEmail" value="{{$employee->email}}"></td>
                                     <td><input type="text" name="editPhone" value="{{$employee->phone}}"></td>
                                     <td>
-                                        <button class="btn ">
+                                        <button type="submit" class="btn ">
                                             <i class="material-icons left">send</i>
                                             <span>Submit</span>
                                         </button>
+
                                     </form>
                                     <form method="POST" action="{{route('employees.destroy', $employee)}}">
                                             @csrf
